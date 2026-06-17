@@ -31,6 +31,8 @@ This involves equipping traditional cameras with AI agents, enabling real-time m
                                                                |
 [ 舵机云台 ] <--- (PWM 信号驱动) <--- (下位机: Arduino / ESP32) <-------+
 
+---
+
 ## 📂 项目结构 (Project Structure)
 ├── config.py          # 全局配置文件（密钥、硬件加速提供者、PID核心参数）
 ├── main.py            # 主程序核心（视觉流、事件状态机、串口通信管理）
@@ -41,6 +43,8 @@ This involves equipping traditional cameras with AI agents, enabling real-time m
 ├── requirements.txt   # 全局依赖环境清单
 └── hardware/          
     └── sentinel_servo.ino  # 下位机 Arduino/ESP32 舵机平滑驱动源码 (C++)
+
+---
 
 ## 🚀 运行与部署 (Deployment)
 1. 环境准备
@@ -64,6 +68,8 @@ DING_URL = "您的钉钉机器人Webhook地址"
 QWEN_API_KEY = "您的通义千问API密钥"
 4. 启动哨兵智能体
 python main.py
+
+---
 
 ## 🌀 核心算法：基于像素偏差的 PID 追踪逻辑系统在每一帧视觉推理中，都会获取人脸框的中心坐标 $(X_{\text{face}}, Y_{\text{face}})$，并与画面中心点 $(X_{\text{center}}, Y_{\text{center}})$ 进行比对：$$\Delta e_x = X_{\text{face}} - X_{\text{center}}$$上位机内部的 PID 控制器根据当前的误差值 $\Delta e_x$、误差的变化率（微分）实时计算出舵机需要补偿的角度增量，并通过串口向单片机高频发送指令。单片机采用平滑阶梯插值算法驱动舵机，确保摄像头在追踪移动目标时，画面平稳不抖动、不丢帧。
 ## 🤝 鸣谢与参考
