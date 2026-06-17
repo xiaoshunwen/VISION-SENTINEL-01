@@ -47,15 +47,15 @@ This involves equipping traditional cameras with AI agents, enabling real-time m
 ```
 ---
 ## 🚀 运行与部署 (Deployment)
-1. 环境准备
+- ** 1. 环境准备
 确保您的 AMD 显卡驱动已更新至最新，在 Conda 环境下安装依赖：
 ```
 pip install -r requirements.txt
 ```
-2. 硬件固件烧录
+- ** 2. 硬件固件烧录
 使用 Arduino IDE 将 hardware/sentinel_servo.ino 源码烧录至你的单片机中，并确认其在设备管理器中的 COM 端口号（例如 COM3）。
 
-3. 配置参数调整
+- ** 3. 配置参数调整
 打开 config.py，配置您的 API 密钥及单片机串口信息：
 ```
 # 核心通信配置
@@ -71,7 +71,7 @@ IMGBB_API_KEY = "您的ImgBB API密钥"
 DING_URL = "您的钉钉机器人Webhook地址"
 QWEN_API_KEY = "您的通义千问API密钥"
 ```
-4. 启动哨兵智能体
+- ** 4. 启动哨兵智能体
 ```
 python main.py
 ```
