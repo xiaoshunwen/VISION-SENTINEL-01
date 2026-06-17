@@ -30,8 +30,20 @@ This involves equipping traditional cameras with AI agents, enabling real-time m
                                                           (USB 串口通信)
                                                                |
 [ 舵机云台 ] <--- (PWM 信号驱动) <--- (下位机: Arduino / ESP32) <-------+
+```
 
 ---
+## 📂 项目结构 (Project Structure)
+├── config.py          # 全局配置文件（密钥、硬件加速提供者、PID核心参数）
+├── main.py            # 主程序核心（视觉流、事件状态机、串口通信管理）
+├── face_rec.py        # 视觉引擎（基于 DmlExecutionProvider 的显卡加速推理）
+├── voice.py           # 语音大模型引擎（Qwen API 调用与本地音频播放状态锁）
+├── notifier.py        # 网络通知模块（ImgBB图床上传与钉钉Webhook异步推送）
+├── logger.py          # 数据持久化模块（CSV日志读写与本地周报文本生成）
+├── requirements.txt   # 全局依赖环境清单
+└── hardware/          
+    └── sentinel_servo.ino  # 下位机 Arduino/ESP32 舵机平滑驱动源码 (C++)
+    
 
 
 
