@@ -33,52 +33,6 @@ This involves equipping traditional cameras with AI agents, enabling real-time m
 
 ---
 
-## 📂 项目结构 (Project Structure)
 
-├── config.py          # 全局配置文件（密钥、硬件加速提供者、PID核心参数）
-├── main.py            # 主程序核心（视觉流、事件状态机、串口通信管理）
-├── face_rec.py        # 视觉引擎（基于 DmlExecutionProvider 的显卡加速推理）
-├── voice.py           # 语音大模型引擎（Qwen API 调用与本地音频播放状态锁）
-├── notifier.py        # 网络通知模块（ImgBB图床上传与钉钉Webhook异步推送）
-├── logger.py          # 数据持久化模块（CSV日志读写与本地周报文本生成）
-├── requirements.txt   # 全局依赖环境清单
-└── hardware/          
-    └── sentinel_servo.ino  # 下位机 Arduino/ESP32 舵机平滑驱动源码 (C++)
 
----
 
-## 🚀 运行与部署 (Deployment)
-
-1. 环境准备
-确保您的 AMD 显卡驱动已更新至最新，在 Conda 环境下安装依赖：
-pip install -r requirements.txt
-2. 硬件固件烧录
-使用 Arduino IDE 将 hardware/sentinel_servo.ino 源码烧录至你的单片机中，并确认其在设备管理器中的 COM 端口号（例如 COM3）。
-3. 配置参数调整
-打开 config.py，配置您的 API 密钥及单片机串口信息：
-# 核心通信配置
-SERIAL_PORT = "COM3"       # 根据实际情况修改
-SERIAL_BAUD = 115200       # 串口波特率
-
-# PID 控制律参数调校
-Kp_x = 0.15                # 比例系数（控制响应速度）
-Kd_x = 0.05                # 微分系数（抑制追逐震荡）
-
-# 敏感 API 密钥
-IMGBB_API_KEY = "您的ImgBB API密钥"
-DING_URL = "您的钉钉机器人Webhook地址"
-QWEN_API_KEY = "您的通义千问API密钥"
-4. 启动哨兵智能体
-python main.py
-
----
-
-## 🌀 核心算法：基于像素偏差的 PID 追踪逻辑系统在每一帧视觉推理中，都会获取人脸框的中心坐标 $(X_{\text{face}}, Y_{\text{face}})$，并与画面中心点
-
-$(X_{\text{center}}, Y_{\text{center}})$ 进行比对：$$\Delta e_x = X_{\text{face}} - X_{\text{center}}$$上位机内部的 PID 控制器根据当前的误差值 $\Delta e_x$、误差的变化率（微分）实时计算出舵机需要补偿的角度增量，并通过串口向单片机高频发送指令。单片机采用平滑阶梯插值算法驱动舵机，确保摄像头在追踪移动目标时，画面平稳不抖动、不丢帧。
-
-## 🤝 鸣谢与参考
-
-InsightFace 团队：提供了极为优秀的工业级轻量化人脸识别模型。
-
-微软 DirectML 团队：打破硬件壁垒，让 AMD Radeon 核显能够爆发出媲美独立显卡的端侧 AI 推理潜能。
