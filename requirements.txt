@@ -1,0 +1,13 @@
+protobuf==3.20.3
+mediapipe==0.10.11
+numpy == 1.26.4
+pip  @insightface-0.7.3-cp311-cp311-win_amd64.whl
+onnxruntime-directml
+insightface
+opencv-python
+numpy
+openai
+edge-tts
+SpeechRecognition
+pygame
+requests
