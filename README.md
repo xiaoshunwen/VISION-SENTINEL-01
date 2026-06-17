@@ -34,6 +34,7 @@ This involves equipping traditional cameras with AI agents, enabling real-time m
 
 ---
 ## 📂 项目结构 (Project Structure)
+```
 ├── config.py          # 全局配置文件（密钥、硬件加速提供者、PID核心参数）
 ├── main.py            # 主程序核心（视觉流、事件状态机、串口通信管理）
 ├── face_rec.py        # 视觉引擎（基于 DmlExecutionProvider 的显卡加速推理）
@@ -43,6 +44,7 @@ This involves equipping traditional cameras with AI agents, enabling real-time m
 ├── requirements.txt   # 全局依赖环境清单
 └── hardware/          
     └── sentinel_servo.ino  # 下位机 Arduino/ESP32 舵机平滑驱动源码 (C++)
+```
     
 
 
